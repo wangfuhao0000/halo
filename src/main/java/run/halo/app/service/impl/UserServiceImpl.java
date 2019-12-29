@@ -56,7 +56,7 @@ public class UserServiceImpl extends AbstractCrudService<User, Integer> implemen
 
     @Override
     public Optional<User> getCurrentUser() {
-        // Find all users
+        // Find all users，在AbstractCrudService中实现
         List<User> users = listAll();
 
         if (CollectionUtils.isEmpty(users)) {
@@ -64,7 +64,7 @@ public class UserServiceImpl extends AbstractCrudService<User, Integer> implemen
             return Optional.empty();
         }
 
-        // Return the first user
+        // Return the first user，传入null时会返回异常
         return Optional.of(users.get(0));
     }
 

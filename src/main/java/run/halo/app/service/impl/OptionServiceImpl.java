@@ -147,7 +147,7 @@ public class OptionServiceImpl extends AbstractCrudService<Option, Integer> impl
     @Override
     @SuppressWarnings("unchecked")
     public Map<String, Object> listOptions() {
-        // Get options from cache
+        // Get options from cache，在缓存中查找，根绝KEY、提供Map.class类是保证类型安全
         return cacheStore.getAny(OPTIONS_KEY, Map.class).orElseGet(() -> {
             List<Option> options = listAll();
 

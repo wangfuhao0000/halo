@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Option service interface.
+ * Option service interface.它就是存了一些相应的配置，然后提供了访问这些配置的接口
  *
  * @author johnniang
  * @date 2019-03-14

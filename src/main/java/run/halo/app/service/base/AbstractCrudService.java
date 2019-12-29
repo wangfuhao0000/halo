@@ -28,7 +28,7 @@ public abstract class AbstractCrudService<DOMAIN, ID> implements CrudService<DOM
 
     private final String domainName;
 
-    private final BaseRepository<DOMAIN, ID> repository;
+    private final BaseRepository<DOMAIN, ID> repository;    // 自动注入了一个访问仓库
 
     protected AbstractCrudService(BaseRepository<DOMAIN, ID> repository) {
         this.repository = repository;

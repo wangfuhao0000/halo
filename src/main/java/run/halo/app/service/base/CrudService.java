@@ -15,8 +15,8 @@ import java.util.Optional;
 /**
  * CrudService interface contains some common methods.
  *
- * @param <DOMAIN> domain type
- * @param <ID>     id type
+ * @param <DOMAIN> domain type，要返回的对象的类型
+ * @param <ID>     id type，要根据此ID进行查询，此ID的类型
  * @author johnniang
  */
 public interface CrudService<DOMAIN, ID> {

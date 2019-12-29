@@ -52,7 +52,7 @@ public class MainController {
     public void avatar(HttpServletResponse response) throws IOException {
         User user = userService.getCurrentUser().orElseThrow(() -> new ServiceException("未查询到博主信息"));
         if (StringUtils.isNotEmpty(user.getAvatar())) {
-            response.sendRedirect(user.getAvatar());
+            response.sendRedirect(user.getAvatar());    // 重定向到用户的头像
         }
     }
 

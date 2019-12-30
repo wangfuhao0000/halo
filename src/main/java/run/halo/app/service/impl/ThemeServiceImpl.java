@@ -325,11 +325,11 @@ public class ThemeServiceImpl implements ThemeService {
         }
     }
 
-    @Override
+    @Override   // 用来渲染的页
     public String render(String pageName) {
-        // Get activated theme
+        // Get activated theme，得到当前激活（正在使用）的主题
         ThemeProperty activatedTheme = getActivatedTheme();
-        // Build render url
+        // Build render url，使用特定的主题：themes/%s/%s，第一个是文件夹名，第二个是页面名称
         return String.format(RENDER_TEMPLATE, activatedTheme.getFolderName(), pageName);
     }
 
@@ -346,7 +346,7 @@ public class ThemeServiceImpl implements ThemeService {
         return activatedThemeId;
     }
 
-    @Override
+    @Override       // 使用了双重锁，来创建单例模式
     public ThemeProperty getActivatedTheme() {
         if (activatedTheme == null) {
             synchronized (this) {

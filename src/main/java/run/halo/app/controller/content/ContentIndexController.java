@@ -68,18 +68,20 @@ public class ContentIndexController {
     @GetMapping(value = "page/{page}")
     public String index(Model model,
                         @PathVariable(value = "page") Integer page) {
-        String indexSort = optionService.getByPropertyOfNonNull(PostProperties.INDEX_SORT).toString();
-        int pageSize = optionService.getPostPageSize();
+        // 所以就是OptionService是访问Properties的入口类，调用OptionService的方法都是获取Properties的相关值
+        String indexSort = optionService.getByPropertyOfNonNull(PostProperties.INDEX_SORT).toString();  // 得到排序的规则
+        int pageSize = optionService.getPostPageSize();     // 其实也是获取PostProperties.INDEX_PAGE_SIZE
+        // 构造一个和分页相关的变量，自定义要查询的分页属性：页数、一页的个数、排序规则等
         Pageable pageable = PageRequest.of(page >= 1 ? page - 1 : page, pageSize, Sort.by(DESC, "topPriority").and(Sort.by(DESC, indexSort)));
 
-        Page<Post> postPage = postService.pageBy(PostStatus.PUBLISHED, pageable);
-        Page<PostListVO> posts = postService.convertToListVo(postPage);
+        Page<Post> postPage = postService.pageBy(PostStatus.PUBLISHED, pageable);  // Post是继承了一个实体，在这里作为一个页，它有很多的属性
+        Page<PostListVO> posts = postService.convertToListVo(postPage);  // 将得到的所有页转为对象
 
-        int[] rainbow = PageUtil.rainbow(page, posts.getTotalPages(), 3);
+        int[] rainbow = PageUtil.rainbow(page, posts.getTotalPages(), 3);  // 彩虹分页算法，一次最多显示三页
 
         model.addAttribute("is_index", true);
-        model.addAttribute("posts", posts);
-        model.addAttribute("rainbow", rainbow);
-        return themeService.render("index");
+        model.addAttribute("posts", posts);     // 分页的内容
+        model.addAttribute("rainbow", rainbow);     // 分页的数字
+        return themeService.render("index");    // 因为把数据都放在了Model里了，渲染时的前端会直接拿出来用
     }
 }
